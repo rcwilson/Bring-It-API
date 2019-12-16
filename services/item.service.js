@@ -1,11 +1,17 @@
 const ItemModel = require('../models/item.model')
-const UserModel = require('../models/user.model')
-const mongoose = require('mongoose');
+const EventService = require('../services/event.service')
+
 module.exports = {
 
-    add(itemName, assignedTo, amountDesired, amountCommitted, category, callback) {
+    add(eventId, itemName, assignedTo, amountDesired, amountCommitted, category, callback) {
             const newItem = new ItemModel({itemName, assignedTo, amountDesired, amountCommitted, category});
-            newItem.save().then(callback);
+            
+            newItem.save()
+            .then(EventService.findById(eventId, event => {
+                event.items.push(newItem)
+                event.save()
+            }))
+            .then(callback);
     },
  
     editItemAssignedTo(itemId, userId, callback) {     

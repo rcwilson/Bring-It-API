@@ -16,8 +16,7 @@ const Item = new mongoose.Schema({
     amountDesired: Number,
     amountCommitted: Number,
 
-    category: { String,
-    }
+    category: { type: String }
     
     
 

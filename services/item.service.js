@@ -3,8 +3,8 @@ const EventService = require('../services/event.service')
 
 module.exports = {
 
-    add(eventId, itemName, assignedTo, amountDesired, amountCommitted, category, callback) {
-            const newItem = new ItemModel({itemName, assignedTo, amountDesired, amountCommitted, category});
+    add(eventId, itemName, assignedTo, category, amountDesired, amountCommitted, callback) {
+            const newItem = new ItemModel({itemName, assignedTo, category, amountDesired, amountCommitted});
             
             newItem.save()
             .then(EventService.findById(eventId, event => {
